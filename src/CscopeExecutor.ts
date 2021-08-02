@@ -168,12 +168,15 @@ export default class CscopeExecutor {
                 const lineNum = parseInt(contents[2]);
 
                 let otherText = contents[1];
+                list.push(new SymbolLocation(fileName, lineNum, 0, 0, otherText));
+                otherText = "";
+
                 for (let i = 3; i < contents.length; ++i)
                 {
                     otherText += ` ${contents[i]}`;
                 }
 
-                list.push(new SymbolLocation(fileName, lineNum, 0, 0, otherText));
+                list.push(new SymbolLocation("", 0, 0, 0, otherText));
             }
         });
         return list;

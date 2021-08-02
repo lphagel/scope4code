@@ -20,12 +20,12 @@ export default class FindResultDoc {
         fileList.forEach((line) =>{
 //            const fileInfo = line.fileName.slice(workspacePathLen) + ':' + line.lineNum
             const fileInfo = line.fileName + ':' + line.lineNum;
-            content += fileInfo + ` ${line.otherText}\n`;
-            const linkRange = new vscode.Range(lineNum, 0, lineNum, fileInfo.length);
-            const linkTarget = vscode.Uri.parse(`file:${line.fileName}#${line.lineNum}`);
-            const docLink = new vscode.DocumentLink(linkRange, linkTarget);
-            this.links.push(docLink);
-            lineNum++;
+            if (fileInfo.length === 2) {
+                content += "\t\t" + ` ${line.otherText}\n`;
+            } else {
+                content += lineNum + "\t" + fileInfo + ` ${line.otherText}\n`;
+                lineNum++;
+            }
         });
 
         this.docContent = briefing + content;
