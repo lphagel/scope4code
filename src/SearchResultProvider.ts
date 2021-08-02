@@ -66,6 +66,7 @@ export function openSearch(brief:string, functionIndex:number, columnMode : bool
             const position = vscode.window.activeTextEditor.selection.active;
             const document = vscode.window.activeTextEditor.document;
             const symbol = document.getText(document.getWordRangeAtPosition(position));
+            const outputChannel = vscode.window.createOutputChannel('cscope');
 
             vscode.window.showInputBox({ value: symbol, prompt: "Enter the text", 
                                         placeHolder: "", password: false }).then( (info) => {
@@ -78,7 +79,9 @@ export function openSearch(brief:string, functionIndex:number, columnMode : bool
                         viewColumn += 1;
                     }
                     return vscode.workspace.openTextDocument(docUri).then((doc) => {
-                        vscode.window.showTextDocument(doc.uri, {viewColumn:viewColumn, preserveFocus:false, preview:false});
+                        outputChannel.clear();
+                        outputChannel.appendLine(doc.getText())
+                        outputChannel.show(true);
                     });
 
                 }
