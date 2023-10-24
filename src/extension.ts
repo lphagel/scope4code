@@ -77,7 +77,7 @@ export function activate(context: vscode.ExtensionContext) {
 //        const database_path = getDatabasePath(configurations.engine_configurations[0].cscope.database_path);
 //        const build_command = configurations.engine_configurations[0].cscope.build_command;
         const database_path = ext_config.getDatabasePath();
-        process.env.PATH = ext_config.getExePath() + ":" + process.env.PATH;
+        process.env.PATH = ext_config.getExePath() + path.delimiter + process.env.PATH;
         console.log(process.env.PATH);
 
         try{
